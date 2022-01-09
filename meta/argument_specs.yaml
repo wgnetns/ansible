@@ -1,0 +1,32 @@
+---
+
+argument_specs:
+  main:
+    short_description: Set up a Wireguard-ed network namespace
+    description: |
+      Set up a Linux network namespace with a Wireguard interface as single way for traffic to enter and exit.
+
+      foo
+
+      bar
+    author:
+      - David Joaquín Shourabi Porcel
+    options:
+      binds:
+        description: systemd.exec(5) BindReadOnlyPaths
+        default:
+          -
+            - /etc/netns/{{ network_namespace_name }}/resolv.conf
+            - /etc/resolv.conf
+        elements: list
+        required: false
+        type: list
+      network_namespace_name:
+        description: Name of the Wireguard-ed network namespace
+        required: true
+        type: str
+      services:
+        description: systemd services to move into the Wireguard-ed network namespace
+        elements: str
+        required: false
+        type: list

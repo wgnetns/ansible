@@ -1,0 +1,6 @@
+[Unit]
+After=wgnetns@{{ network_namespace_name }}.service
+BindsTo=wgnetns@{{ network_namespace_name }}.service
+
+[Service]
+NetworkNamespacePath=/var/run/netns/{{ network_namespace_name }}

@@ -1,0 +1,15 @@
+---
+
+-
+  name: Create systemd drop-in directory
+  #name: Create systemd drop-in directories for systemd units
+  ansible.builtin.file:
+    state: directory
+    group: root
+    mode: u=rwx,go=rx
+    owner: root
+    path: /etc/systemd/system/wgns@{{ network_namespace_name }}.service.d
+
+# general
+
+# configuration_files

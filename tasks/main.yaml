@@ -1,0 +1,14 @@
+---
+
+-
+  name: Install wgnetns
+  ansible.builtin.import_tasks: install.yaml
+
+-
+  name: Set up Wireguard in network namespace
+  ansible.builtin.import_tasks: setup.yaml
+
+-
+  name: Move specified systemd services into Wireguard-ed network namespace
+  ansible.builtin.import_tasks: wrap.yaml
+  loop: "{{ services }}"

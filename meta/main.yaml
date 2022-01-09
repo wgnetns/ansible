@@ -1,0 +1,19 @@
+---
+
+galaxy_info:
+  role_name: wgnetns
+  author: David Joaquín Shourabi Porcel
+  description: Wireguard-ed network namespace setup
+  galaxy_tags:
+    - namespace
+    - namespaces
+    - netns
+    - wireguard
+  min_ansible_version: 2.12
+  platforms:
+    -
+      name: Ubuntu
+      versions:
+        - focal # 20.04
+        #- hirsute # 21.04
+        #- impish # 21.10

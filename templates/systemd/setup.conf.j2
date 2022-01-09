@@ -1,0 +1,22 @@
+[Service]
+{% if loopback %}
+ExecStartPost=/usr/bin/ip -netns %i link set dev lo up
+{% endif %}
+{% foreach command in hooks.up %}
+ExecStartPost={{ command }}
+{% endfor %}
+ExecStartPost=/usr/bin/ip -netns %i link set dev wg0 up
+{% if route_outbound_ipv4 %}
+# Route outbound IPv4 traffic through the Wireguard interface
+ExecStartPost=/usr/bin/ip -netns %i -family inet  route add default dev wg0
+{% endif %}
+{% if route_outbound_ipv6 %}
+# Route outbound IPv6 traffic through the Wireguard interface
+ExecStartPost=/usr/bin/ip -netns %i -family inet6 route add default dev wg0
+{% endif %}
+{% foreach command in hooks.post_up %}
+ExecStartPost={{ command }}
+{% endfor %}
+{% foreach command in hooks.pre_down %}
+ExecStopPre={{ command }}
+{% endfor %}

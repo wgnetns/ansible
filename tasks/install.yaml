@@ -1,0 +1,17 @@
+---
+
+-
+  name: Install wgnetns
+  ansible.builtin.apt:
+    state: present
+    name: wgnetns
+  when:
+    - ansible_facts['os_family'] | lower == 'debian'
+
+-
+  name: Install wgnetns
+  community.general.pacman:
+    state: present
+    name: wgnetns
+  when:
+    - ansible_facts['os_name'] | lower == 'arch'

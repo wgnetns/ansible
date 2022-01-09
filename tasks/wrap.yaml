@@ -1,0 +1,23 @@
+---
+
+-
+  name: Create systemd drop-in directory
+  #name: Create systemd drop-in directories for systemd units
+  ansible.builtin.file:
+    state: directory
+    group: root
+    mode: u=rwx,go=rx
+    owner: root
+    path: /etc/systemd/system/{{ systemd_unit_name }}.service.d
+
+-
+  name: Ensure systemd service runs in Wireguard-ed namespace
+  #name: Ensure systemd units start after Wireguard-ed namespace has been set up
+  ansible.builtin.template:
+    state: present
+    group: root
+    mode: u=rw,go=r
+    option: After
+    owner: root
+    path: /etc/systemd/system/{{ systemd_unit_name }}.service.d/00-wgns.conf
+    value: wgns@{{ network_namespace_name }}.service
